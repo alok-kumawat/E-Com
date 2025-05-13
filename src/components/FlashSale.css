@@ -1,6 +1,7 @@
 .flash-card {
   min-width: 180px;
   flex: 0 0 auto;
+  scroll-snap-align: start;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -12,6 +13,9 @@
 
 
 .custom-scrollbar {
+  min-width: 180px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;

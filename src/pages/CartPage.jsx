@@ -3,9 +3,23 @@ import { useCart } from "../context/CartContext";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaTrash } from "react-icons/fa";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
+  const {user}=useUser()
+   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+// render cart only if user exists
+  if (!user) return null;
 
   const calculateTotal = (item) => item.price * item.quantity;
   const grandTotal = cart.reduce((sum, item) => sum + calculateTotal(item), 0);
@@ -26,7 +40,7 @@ const CartPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="mb-3 shadow-sm">
+              <Card className=" bg-light mb-3 shadow-sm">
                 <Card.Body>
                   <Row className="align-items-center">
                     <Col md={2}>
@@ -78,7 +92,7 @@ const CartPage = () => {
 
           {/* Grand Total */}
           <motion.div
-            className="text-end mt-4 fs-5 fw-semibold"
+            className="text-end mt-4 fs-5 fw-bold"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}

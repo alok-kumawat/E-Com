@@ -1,0 +1,46 @@
+.banner-img {
+  width: 100%;
+  height: auto;               /* Let height adjust automatically */
+  object-fit: contain;        /* Prevent cropping — show entire image */
+  object-position: center;    /* Center the image */
+}
+
+@media screen and (max-width: 768px) {
+  .banner-img {
+    max-height: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner-img {
+    max-height: 300px;
+  }
+}
+
+/* Target Carousel control arrows */
+.banner-container .carousel-control-prev-icon,
+.banner-container .carousel-control-next-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: 100% 100%;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(150%);
+}
+
+/*reduce button container size*/
+.banner-container .carousel-control-prev,
+.banner-container .carousel-control-next {
+  width: 3%;
+}
+
+.banner-container .carousel-indicators [data-bs-target] {
+  background-color: #007bff;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.banner-container .carousel-indicators .active {
+  background-color: #0056b3;
+  opacity: 1;
+}

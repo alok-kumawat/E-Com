@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useCart } from "../context/CartContext";
 import { Card, Button, Container } from "react-bootstrap";
 import "./FlashSale.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import first from '../assets/firstflash.png';
 import second from '../assets/secondflash.png';
 import third from '../assets/thirdflash.png';
@@ -9,7 +11,7 @@ import fourth from '../assets/fourthflash.png';
 import fifth from '../assets/fifthflash.png';
 import sixth from '../assets/sixthflash.png';
 
-const products = [
+const initialProducts = [
   {
     id: 1,
     title: "Wireless Headphones",
@@ -50,6 +52,17 @@ const products = [
 
 const FlashSale = () => {
   const { dispatch } = useCart();
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setProducts(initialProducts);
+      setLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleBuyNow = (product) => {
     dispatch({ type: "ADD_ITEM", payload: product });
@@ -63,7 +76,18 @@ const FlashSale = () => {
       </div>
 
       <div className=" d-flex custom-scrollbar ">
-        {products.map((item) => (
+        {loading
+          ? Array(6).fill().map((_, idx) => (
+              <Card key={idx} className="me-3 flash-card">
+                <Skeleton height={150} />
+                <Card.Body className="text-center">
+                  <Skeleton width={100} height={20} />
+                  <Skeleton width={80} height={20} className="my-2" />
+                  <Skeleton width={70} height={30} />
+                </Card.Body>
+              </Card>
+            ))
+          : products.map((item) => (
           <Card key={item.id} className="me-3 flash-card">
             <Card.Img variant="top" src={item.image} />
             <Card.Body className="text-center">

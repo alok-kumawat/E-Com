@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Navbar";
 import Banner from "./components/Banner";
 import FlashSale from "./components/FlashSale";
@@ -10,32 +10,50 @@ import ProductGrid from "./components/ProductGrid";
 import Footer from "./components/Footer";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
+import Login from "./components/Login";
+import Category from "./components/Category";
 
-function App() {
+// Wrapper component to use useLocation inside Router
+const Layout = () => {
   const [query, setQuery] = useState("");
+  const location = useLocation();
+
+  const hideHeaderOnPaths = ["/login"];
 
   return (
-    <CartProvider>
-      <Router>
+    <>
+      {!hideHeaderOnPaths.includes(location.pathname) && (
         <Header onSearch={setQuery} />
-        <Routes>
-          <Route 
-            path="/"
-            element={
-              <>
-                <Banner />
-                <FlashSale />
-                <OfficialStores />
-                <Promotions />
-                <Categories />
-                <ProductGrid searchQuery={query} />
-                <Footer />
-              </>
-            }
-          />
-          <Route path="/cart" element={<CartPage />} />
-        </Routes>
-      </Router>
+      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Banner />
+              <FlashSale />
+              <OfficialStores />
+              <Promotions />
+              <Categories />
+              <ProductGrid searchQuery={query} />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/category/:category" element={<Category />} />
+      </Routes>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <CartProvider>
+      
+        <Layout />
+      
     </CartProvider>
   );
 }

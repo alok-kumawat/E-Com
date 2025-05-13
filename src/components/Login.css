@@ -1,0 +1,21 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
+.login-bg {
+    background-color: rgba(255, 255, 255, 0.95);
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.login-card {
+    background: url("../assets/login-bg.jpg") no-repeat center center fixed;
+}
+
+.login-btn {
+  transition: background 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background-color: #0d6efd;
+  filter: brightness(1.1);
+}
+
+/* Animate.css CDN or import this library */

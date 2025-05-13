@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 const categories = [
   {
     id: 1,
@@ -41,16 +41,19 @@ const PopularCategories = () => {
       <Row className="g-3 text-center">
         {categories.map((category) => (
           <Col xs={3} sm={3} md={2} key={category.id}>
+            <Link to={`category/${category.name}`}>
+
             <Card className="border-0">
-              <Card.Img
+              <Card.Img 
                 variant="top"
                 src={category.image}
                 style={{ width: "60px", height: "60px", objectFit: "contain", margin: "auto" }}
-              />
+                />
               <Card.Body className="p-2">
                 <Card.Text className="small">{category.name}</Card.Text>
               </Card.Body>
             </Card>
+                </Link>
           </Col>
         ))}
       </Row>

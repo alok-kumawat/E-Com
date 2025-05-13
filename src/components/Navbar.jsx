@@ -4,11 +4,11 @@ import { Navbar, Nav, Form, FormControl, Button, Container, NavDropdown } from "
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import logo from '../assets/E-Logo.jpg';
 import { useCart } from "../context/CartContext";
-
+import { useUser } from "../context/UserContext";
 
 const Header = ({onSearch}) => {
   const [query, setQuery] = useState("");
-
+const {user,logout}=useUser()
   const { cart } = useCart();
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -47,9 +47,9 @@ const Header = ({onSearch}) => {
 
           {/* Right-side icons */}
           <Nav className="d-flex align-items-center">
-            <Nav.Link href="#" className="d-flex align-items-center">
-              <FaUserCircle size={20} className="me-1" />
-              Login
+            <Nav.Link href={user?"/":"/login"} className="d-flex align-items-center">
+              <FaUserCircle size={20} className="me-1" onClick={()=>user?logout():null} />
+              {user?"Logout":"Login"}
             </Nav.Link>
             <Link to="/cart" className="nav-link d-flex align-items-center ms-2 position-relative">
               <FaShoppingCart size={20} className="me-1" />
